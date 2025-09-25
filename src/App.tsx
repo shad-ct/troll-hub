@@ -16,7 +16,8 @@ type AudioKey =
   | "d"
   | "e"
   | "f"
-  | "g";
+  | "g"
+  | "h";
 
 const audioFiles = {
   "1": "/audio/abhaminich kaynenkil pokkotte.mp3",
@@ -35,6 +36,7 @@ const audioFiles = {
   e: "/audio/maraboodhame.mp3",
   f: "/audio/naashathileeka pokunne.mp3",
   g: "/audio/thalararudh raman kutti.mp3",
+  h: "/audio/pavanai_savamai.mp3",
 };
 
 function App() {
