@@ -17,7 +17,12 @@ type AudioKey =
   | "e"
   | "f"
   | "g"
-  | "h";
+  | "h"
+  | "i"
+  | "j"
+  | "k"
+  | "l"
+  | "m" ;
 
 const audioFiles = {
   "1": "/audio/abhaminich kaynenkil pokkotte.mp3",
@@ -37,6 +42,11 @@ const audioFiles = {
   f: "/audio/naashathileeka pokunne.mp3",
   g: "/audio/thalararudh raman kutti.mp3",
   h: "/audio/pavanai_savamai.mp3",
+  i:"/audio/angane_angu_poyalo.mp3",
+  j:"/audio/ne_arinjaa_njan_pettu.mp3",
+  k:"/audio/ne_theernnada.mp3",
+  l:"/audio/pidikkavane.mp3",
+  m:"/audio/ivanu_pranthanu.mp3"
 };
 
 function App() {
