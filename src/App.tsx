@@ -20,29 +20,6 @@ function App() {
 	}
 
 	useEffect(() => {
-		const handleKeyPress = (event: KeyboardEvent) => {
-			const active = document.activeElement
-			if (
-				active &&
-				(active.tagName === "INPUT" || active.tagName === "TEXTAREA")
-			) {
-				return
-			}
-
-			const key = event.key.toLowerCase()
-			if (key in audioFiles) {
-				playAudio(key as AudioKey)
-			}
-		}
-
-		window.addEventListener("keydown", handleKeyPress)
-
-		return () => {
-			window.removeEventListener("keydown", handleKeyPress)
-		}
-	}, [])
-
-	useEffect(() => {
 		setCurrentPage(1)
 	}, [query])
 
@@ -61,6 +38,29 @@ function App() {
 	const startIndex = (currentPage - 1) * itemsPerPage
 	const endIndex = startIndex + itemsPerPage
 	const paginatedList = filteredList.slice(startIndex, endIndex)
+	
+	useEffect(() => {
+		const handleKeyPress = (event: KeyboardEvent) => {
+			const active = document.activeElement
+			if (
+				active &&
+				(active.tagName === "INPUT" || active.tagName === "TEXTAREA")
+			) {
+				return
+			}
+
+			const key = event.key.toLowerCase()
+			if (paginatedList.some((item) => item.key === key)) {
+				playAudio(key as AudioKey)
+			}
+		}
+
+		window.addEventListener("keydown", handleKeyPress)
+
+		return () => {
+			window.removeEventListener("keydown", handleKeyPress)
+		}
+	}, [paginatedList])
 
 	return (
 		<div className='flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4'>
