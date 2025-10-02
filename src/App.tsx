@@ -102,7 +102,7 @@ function App() {
 							key={key}
 							className='bg-gray-800 p-4 rounded-lg shadow-lg'>
 							<img
-								src={`/images/${key}.png`}
+								src={`/images/${key}.webp`}
 								alt={name}
 								className='w-full h-32 object-cover rounded mb-2'
 							/>
