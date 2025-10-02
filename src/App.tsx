@@ -49,10 +49,10 @@ function App() {
 	}, [filteredList, currentPage, itemsPerPage])
 
 	const paginatedListRef = useRef(paginatedList)
-    useEffect(() => {
+	useEffect(() => {
 		paginatedListRef.current = paginatedList
 	}, [paginatedList])
-	
+
 	useEffect(() => {
 		const handleKeyPress = (event: KeyboardEvent) => {
 			const active = document.activeElement
@@ -105,7 +105,6 @@ function App() {
 								src={`/images/${key}.png`}
 								alt={name}
 								className='w-full h-32 object-cover rounded mb-2'
-								loading='lazy'
 							/>
 							<h3 className='text-lg font-semibold'>
 								Key: {key.toUpperCase()}
