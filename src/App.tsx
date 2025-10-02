@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useMemo, useCallback } from "react"
 import { AudioKey, audioFiles } from "./constants/audio"
 import Pagination from "./components/Pagination"
 
@@ -8,7 +8,7 @@ function App() {
 	const [currentPage, setCurrentPage] = useState(1)
 	const itemsPerPage = 8
 
-	const playAudio = (audioName: AudioKey) => {
+	const playAudio = useCallback((audioName: AudioKey) => {
 		if (audioRef.current) {
 			audioRef.current.src = audioFiles[audioName]
 			audioRef.current
@@ -17,27 +17,41 @@ function App() {
 					console.error("Audio playback failed:", error)
 				)
 		}
-	}
+	}, [])
 
 	useEffect(() => {
 		setCurrentPage(1)
 	}, [query])
 
-	const audioList = Object.entries(audioFiles).map(([key, path]) => ({
-		key,
-		name: path.split("/").pop() || "",
-	}))
+	const audioList = useMemo(() => {
+		return Object.entries(audioFiles).map(([key, path]) => ({
+			key,
+			name: path.split("/").pop() || "",
+		}))
+	}, [])
 
-	const filteredList = audioList.filter(({ key, name }) => {
-		if (!query.trim()) return true
-		const q = query.toLowerCase()
-		return key.toLowerCase().includes(q) || name.toLowerCase().includes(q)
-	})
+	const filteredList = useMemo(() => {
+		return audioList.filter(({ key, name }) => {
+			if (!query.trim()) return true
+			const q = query.toLowerCase()
+			return (
+				key.toLowerCase().includes(q) || name.toLowerCase().includes(q)
+			)
+		})
+	}, [audioList, query])
 
 	const totalPages = Math.ceil(filteredList.length / itemsPerPage)
-	const startIndex = (currentPage - 1) * itemsPerPage
-	const endIndex = startIndex + itemsPerPage
-	const paginatedList = filteredList.slice(startIndex, endIndex)
+
+	const paginatedList = useMemo(() => {
+		const startIndex = (currentPage - 1) * itemsPerPage
+		const endIndex = startIndex + itemsPerPage
+		return filteredList.slice(startIndex, endIndex)
+	}, [filteredList, currentPage, itemsPerPage])
+
+	const paginatedListRef = useRef(paginatedList)
+    useEffect(() => {
+		paginatedListRef.current = paginatedList
+	}, [paginatedList])
 	
 	useEffect(() => {
 		const handleKeyPress = (event: KeyboardEvent) => {
@@ -50,7 +64,7 @@ function App() {
 			}
 
 			const key = event.key.toLowerCase()
-			if (paginatedList.some((item) => item.key === key)) {
+			if (paginatedListRef.current.some((item) => item.key === key)) {
 				playAudio(key as AudioKey)
 			}
 		}
@@ -60,7 +74,7 @@ function App() {
 		return () => {
 			window.removeEventListener("keydown", handleKeyPress)
 		}
-	}, [paginatedList])
+	}, [playAudio])
 
 	return (
 		<div className='flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4'>
@@ -91,6 +105,7 @@ function App() {
 								src={`/images/${key}.png`}
 								alt={name}
 								className='w-full h-32 object-cover rounded mb-2'
+								loading='lazy'
 							/>
 							<h3 className='text-lg font-semibold'>
 								Key: {key.toUpperCase()}
@@ -111,7 +126,6 @@ function App() {
 					</p>
 				)}
 
-				{/* ✨ 2. Use the new Pagination component */}
 				<Pagination
 					currentPage={currentPage}
 					totalPages={totalPages}
