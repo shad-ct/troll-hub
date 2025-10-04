@@ -21,6 +21,7 @@ export type AudioKey =
 	| "k"
 	| "l"
 	| "m"
+	| "n"
 
 export const audioFiles = {
 	"1": "/audio/abhaminich kaynenkil pokkotte.mp3",
@@ -45,4 +46,5 @@ export const audioFiles = {
 	k: "/audio/ne_theernnada.mp3",
 	l: "/audio/pidikkavane.mp3",
 	m: "/audio/ivanu_pranthanu.mp3",
+	n: "/audio/ivan-koya-njan-koya.mp3",
 }
