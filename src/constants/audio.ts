@@ -22,6 +22,18 @@ export type AudioKey =
 	| "l"
 	| "m"
 	| "n"
+	| "o"
+ 	| "p"
+	| "q"
+	| "r"
+	| "s"
+	| "t"
+	| "u"
+	| "v"
+	| "w"
+	| "x"
+	| "y"
+	| "z"
 
 export const audioFiles = {
 	"1": "/audio/abhaminich kaynenkil pokkotte.mp3",
@@ -47,4 +59,16 @@ export const audioFiles = {
 	l: "/audio/pidikkavane.mp3",
 	m: "/audio/ivanu_pranthanu.mp3",
 	n: "/audio/ivan-koya-njan-koya.mp3",
+	o: "/audio/oh god u again.mp3",
+	p: "/audio/oru_paatu_vechthannal_onnentertain_cheyamayirunnu.mp3",
+	q: "/audio/padachone_ingalu_kaatholi.mp3",
+	r: "/audio/maanga-pari-chelikuthu.mp3",
+	s: "/audio/salim kumar funny laugh.mp3",
+	t: "/audio/ingane_oru_kuruppine_njn_kandillalo.mp3",
+	u: "/audio/ente-illatha-budhiyil-oraidea.mp3",
+	v: "/audio/pavam-avan-vijrambichu-poyi.mp3",
+	w: "/audio/kollaam-ivanaalu_kollaam.mp3",
+	x: "/audio/korachu-korachu.mp3",
+	y: "/audio/ayyo-ente-kutta-evidonokke-adi-varunnu.mp3",
+	z: "/audio/njan oru velya sambhavalle.mp3",
 }
